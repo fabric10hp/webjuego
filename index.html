@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa Mágica - Juegos de Mesa</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            padding: 1rem;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0 1rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Juego de Memoria */
+        .memory-game {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 500px;
+            margin: 1rem auto;
+        }
+        
+        .memory-card {
+            height: 100px;
+            background-color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .memory-card::before {
+            content: '?';
+            position: absolute;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .memory-card.flipped {
+            background-color: var(--light);
+            font-size: 0;
+        }
+        
+        .memory-card.flipped::before {
+            display: none;
+        }
+        
+        .memory-card img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            display: none;
+        }
+        
+        .memory-card.flipped img {
+            display: block;
+        }
+        
+        .game-info {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mesa Mágica</h1>
+        <p>Los mejores juegos de mesa modernos</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#juego">Juega</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="inicio">
+            <h2>Bienvenido a nuestra tienda</h2>
+            <p>Descubre los juegos de mesa más emocionantes para todas las edades.</p>
+        </section>
+        
+        <section id="catalogo">
+            <h2>Nuestros Juegos Destacados</h2>
+            <div class="products">
+                <div class="product-card">
+                    <img src="https://cf.geekdo-images.com/1PYh_5X4f4JJD8XzbsQ1PQ__itemrep/img/5O6g5qbzV4yE6QdX2Q6vx9XgU6A=/fit-in/246x300/filters:strip_icc()/pic5944424.jpg" alt="Catan" class="product-image">
+                    <div class="product-info">
+                        <h3>Catan</h3>
+                        <p>El clásico juego de estrategia y negociación donde colonizas la isla de Catan.</p>
+                        <p class="price">$49.99</p>
+                        <a href="#" class="btn">Ver más</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://cf.geekdo-images.com/aoPM07XzoceB-RydLh08zA__itemrep/img/Y3yQ7nKjYlbX8y09JhXWXqXqg2A=/fit-in/246x300/filters:strip_icc()/pic2437871.jpg" alt="Ticket to Ride" class="product-image">
+                    <div class="product-info">
+                        <h3>Ticket to Ride</h3>
+                        <p>Construye rutas ferroviarias a través de Norteamérica en este emocionante juego.</p>
+                        <p class="price">$44.99</p>
+                        <a href="#" class="btn">Ver más</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://cf.geekdo-images.com/7Q5vOTY8x5mNR88QQDlzBw__itemrep/img/1nS2d4XZ0w5Q9n3j0h4QqyQ5QDY=/fit-in/246x300/filters:strip_icc()/pic5146864.png" alt="Wingspan" class="product-image">
+                    <div class="product-info">
+                        <h3>Wingspan</h3>
+                        <p>Un hermoso juego de estrategia sobre observación de aves con componentes de alta calidad.</p>
+                        <p class="price">$59.99</p>
+                        <a href="#" class="btn">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="juego" class="memory-game">
+            <h2>Juego de Memoria</h2>
+            <p>Encuentra las parejas de juegos de mesa</p>
+            
+            <div class="memory-board" id="memory-board">
+                <!-- Cartas se generarán con JavaScript -->
+            </div>
+            
+            <div class="game-info">
+                <p>Movimientos: <span id="moves">0</span></p>
+                <button id="reset-btn" class="btn">Reiniciar Juego</button>
+            </div>
+        </section>
+        
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <form>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Nombre:</label>
+                    <input type="text" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Email:</label>
+                    <input type="email" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Mensaje:</label>
+                    <textarea required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; min-height: 100px;"></textarea>
+                </div>
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 Mesa Mágica - Todos los derechos reservados</p>
+    </footer>
+    
+    <script>
+        // Juego de Memoria con imágenes
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameImages = [
+                { name: 'Catan', img: 'https://cf.geekdo-images.com/1PYh_5X4f4JJD8XzbsQ1PQ__itemrep/img/5O6g5qbzV4yE6QdX2Q6vx9XgU6A=/fit-in/246x300/filters:strip_icc()/pic5944424.jpg' },
+                { name: 'Ticket to Ride', img: 'https://cf.geekdo-images.com/aoPM07XzoceB-RydLh08zA__itemrep/img/Y3yQ7nKjYlbX8y09JhXWXqXqg2A=/fit-in/246x300/filters:strip_icc()/pic2437871.jpg' },
+                { name: 'Wingspan', img: 'https://cf.geekdo-images.com/7Q5vOTY8x5mNR88QQDlzBw__itemrep/img/1nS2d4XZ0w5Q9n3j0h4QqyQ5QDY=/fit-in/246x300/filters:strip_icc()/pic5146864.png' },
+                { name: 'Pandemic', img: 'https://cf.geekdo-images.com/Mf1vX5rDdD5bW7mWsPT14Q__itemrep/img/4Jjw0q-9jOZ1HJ1hJ8QOjXJhUY8=/fit-in/246x300/filters:strip_icc()/pic1534148.jpg' },
+                { name: 'Azul', img: 'https://cf.geekdo-images.com/9cYnsP-GJPPrse1qZc3pTA__itemrep/img/2V4CnuL4X5yx2i5KFTvbdJ5x0K8=/fit-in/246x300/filters:strip_icc()/pic3718275.png' },
+                { name: 'Carcassonne', img: 'https://cf.geekdo-images.com/Z3upN53-fsVPUDimN9SpOA__itemrep/img/YDBgi5W1C4q4Z7l-q1nqU4Ei5n8=/fit-in/246x300/filters:strip_icc()/pic2337577.jpg' }
+            ];
+            
+            let cards = [...gameImages, ...gameImages];
+            let flippedCards = [];
+            let moves = 0;
+            let lockBoard = false;
+            
+            const board = document.getElementById('memory-board');
+            const movesDisplay = document.getElementById('moves');
+            const resetBtn = document.getElementById('reset-btn');
+            
+            // Mezclar cartas
+            function shuffleCards() {
+                for (let i = cards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [cards[i], cards[j]] = [cards[j], cards[i]];
+                }
+            }
+            
+            // Crear tablero
+            function createBoard() {
+                board.innerHTML = '';
+                shuffleCards();
+                
+                cards.forEach((game, index) => {
+                    const card = document.createElement('div');
+                    card.classList.add('memory-card');
+                    card.dataset.index = index;
+                    
+                    const img = document.createElement('img');
+                    img.src = game.img;
+                    img.alt = game.name;
+                    
+                    card.appendChild(img);
+                    card.addEventListener('click', flipCard);
+                    board.appendChild(card);
+                });
+                
+                moves = 0;
+                movesDisplay.textContent = moves;
+                flippedCards = [];
+            }
+            
+            // Voltear carta
+            function flipCard() {
+                if (lockBoard || this.classList.contains('flipped')) return;
+                
+                this.classList.add('flipped');
+                flippedCards.push(this);
+                
+                if (flippedCards.length === 2) {
+                    lockBoard = true;
+                    moves++;
+                    movesDisplay.textContent = moves;
+                    checkForMatch();
+                }
+            }
+            
+            // Comprobar coincidencia
+            function checkForMatch() {
+                const card1 = flippedCards[0];
+                const card2 = flippedCards[1];
+                const img1 = card1.querySelector('img').src;
+                const img2 = card2.querySelector('img').src;
+                
+                if (img1 === img2) {
+                    // Coinciden
+                    flippedCards = [];
+                    lockBoard = false;
+                    
+                    // Comprobar si el juego terminó
+                    if (document.querySelectorAll('.flipped').length === cards.length) {
+                        setTimeout(() => {
+                            alert(`¡Ganaste en ${moves} movimientos!`);
+                        }, 500);
+                    }
+                } else {
+                    // No coinciden
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                        flippedCards = [];
+                        lockBoard = false;
+                    }, 1000);
+                }
+            }
+            
+            // Reiniciar juego
+            resetBtn.addEventListener('click', createBoard);
+            
+            // Iniciar juego
+            createBoard();
+        });
+    </script>
+</body>
+</html>
